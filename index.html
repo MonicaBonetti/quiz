@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>À combien tu tournes ? — Monica Bonetti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --terracotta: #cd764b;
+      --terracotta-light: #e8906a;
+      --teal: #49ada4;
+      --creme: #faf6f0;
+      --creme-dark: #ffeecf;
+      --or: #c88d25;
+      --brown: #4a2e1a;
+      --brown-mid: #9b6c48;
+      --text: #3a2510;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--creme);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--creme);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(74,46,26,0.1);
+    }
+
+    header img {
+      height: 52px;
+      width: auto;
+    }
+
+    /* HERO — terracotta */
+    .hero {
+      background: var(--terracotta);
+      padding: 52px 24px 48px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--creme-dark);
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 48px 24px 64px;
+      width: 100%;
+    }
+
+    /* QUESTION BLOCK */
+    .question-block {
+      margin-bottom: 24px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 26px 26px 22px;
+      box-shadow: 0 2px 16px rgba(74,46,26,0.07);
+      border-top: 3px solid var(--teal);
+    }
+
+    .question-block:nth-child(even) {
+      border-top-color: var(--or);
+    }
+
+    .q-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2.5vw, 1.12rem);
+      color: var(--brown);
+      line-height: 1.45;
+      margin-bottom: 18px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 11px 15px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      background: var(--creme);
+      cursor: pointer;
+      transition: all 0.18s;
+      font-size: 0.91rem;
+      line-height: 1.45;
+      color: var(--text);
+    }
+
+    .option-label input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(74,46,26,0.25);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: all 0.18s;
+      background: #fff;
+    }
+
+    .option-label input[type="radio"]:checked {
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+      box-shadow: inset 0 0 0 3px #fff;
+    }
+
+    .option-label:hover {
+      border-color: var(--terracotta);
+      background: #fff;
+    }
+
+    .option-label:has(input:checked) {
+      border-color: var(--terracotta);
+      background: rgba(205,118,75,0.07);
+      font-weight: 700;
+    }
+
+    /* EMAIL BLOCK */
+    .email-block {
+      background: var(--creme-dark);
+      border-radius: 20px;
+      padding: 36px 32px;
+      text-align: center;
+      margin-top: 12px;
+      border: 1.5px solid rgba(200,141,37,0.2);
+    }
+
+    .email-block h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      color: var(--brown);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .email-block .sub {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      color: var(--brown-mid);
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+
+    .sub-below {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem;
+      color: var(--brown-mid);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .fields {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 380px;
+      margin: 0 auto 20px;
+    }
+
+    .field-input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 2px solid rgba(74,46,26,0.12);
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      color: var(--text);
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .field-input:focus {
+      border-color: var(--terracotta);
+    }
+
+    .consent-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--brown-mid);
+      text-align: left;
+      max-width: 380px;
+      margin: 0 auto 22px;
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .consent-label input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(74,46,26,0.25);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      background: #fff;
+      transition: all 0.18s;
+      cursor: pointer;
+    }
+
+    .consent-label input[type="checkbox"]:checked {
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='1,5 4.5,8.5 11,1' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 70%;
+    }
+
+    .consent-label em {
+      font-style: italic;
+      font-size: 0.78rem;
+      color: var(--brown-mid);
+      opacity: 0.75;
+    }
+
+    .btn-submit {
+      display: inline-block;
+      background: var(--terracotta);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 15px 40px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: var(--terracotta-light);
+      transform: translateY(-2px);
+    }
+
+    .error-msg {
+      color: #c0392b;
+      font-size: 0.85rem;
+      margin-top: 14px;
+      display: none;
+      font-weight: 600;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--terracotta);
+      color: rgba(255,255,255,0.85);
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 0.82rem;
+    }
+
+    footer a { color: rgba(255,255,255,0.85); text-decoration: none; }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 480px) {
+      .question-block { padding: 20px 16px; }
+      .email-block { padding: 28px 18px; }
+      main { padding: 32px 16px 48px; }
+      .hero { padding: 40px 20px 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="https://raw.githubusercontent.com/MonicaBonetti/monicabonetti.github.io/main/MB%20noir%20et%20blanc_logo.png" alt="Monica Bonetti" />
+</header>
+
+<!-- HERO TERRACOTTA -->
+<div class="hero">
+  <p class="hero-eyebrow">Quiz · Charge mentale</p>
+  <h1>À combien tu <em>tournes</em> vraiment ?</h1>
+  <p class="hero-sub">9 questions pour le savoir et un premier pas concret pour souffler.</p>
+</div>
+
+<main>
+  <div id="quiz-form">
+
+    <!-- Q1 -->
+    <div class="question-block">
+      <p class="q-text">Tu sursautes sous la douche parce que tu te souviens que t'as oublié d'acheter du PQ ?</p>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q1" value="1" required /> Jamais, ma tête sait se poser.</label>
+        <label class="option-label"><input type="radio" name="q1" value="2" /> Parfois, mais ça reste assez rare.</label>
+        <label class="option-label"><input type="radio" name="q1" value="3" /> Souvent, la douche c'est mon bureau de secours.</label>
+        <label class="option-label"><input type="radio" name="q1" value="4" /> Tout le temps ! C'est là que j'ai mes meilleures idées et mes pires angoisses.</label>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-block">
+      <p class="q-text">T'as une liste mentale de 47 trucs à ne pas oublier ?</p>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q2" value="1" required /> Non, j'arrive à poser et à souffler.</label>
+        <label class="option-label"><input type="radio" name="q2" value="2" /> Oui mais c'est gérable.</label>
+        <label class="option-label"><input type="radio" name="q2" value="3" /> Oui et j'ai toujours peur d'oublier quelque chose.</label>
+        <label class="option-label"><input type="radio" name="q2" value="4" /> Oui, matin-midi-soir et même parfois la nuit.</label>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-block">
+      <p class="q-text">Le soir en te couchant ?</p>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q3" value="1" required /> La tête légère, je m'endors direct.</label>
+        <label class="option-label"><input type="radio" name="q3" value="2" /> Quelques pensées qui traînent et dodo.</label>
+        <label class="option-label"><input type="radio" name="q3" value="3" /> Je refais ma journée, j'anticipe demain et je m'endors 1h après.</label>
+        <label class="option-label"><input type="radio" name="q3" value="4" /> Mon cerveau off ? Je crois que même quand je dors il tourne encore.</label>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-block">
+      <p class="q-text">Tu te lèves le matin et t'as déjà l'impression d'avoir couru un marathon ?</p>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q4" value="1" required /> Non, je me réveille plutôt bien.</label>
+        <label class="option-label"><input type="radio" name="q4" value="2" /> Ça dépend des jours.</label>
+        <label class="option-label"><input type="radio" name="q4" value="3" /> Souvent, je suis fatiguée avant que ça commence.</label>
+        <label class="option-label"><input type="radio" name="q4" value="4" /> Tous les matins, KO technique.</label>
+      </div>
+    </div>
+
+
+    <!-- Q5 CORPS -->
+    <div class="question-block">
+      <p class="q-text">Tes bobos du moment ?</p>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q5corps" value="1" required /> R.A.S, je pète le feu.</label>
+        <label class="option-label"><input type="radio" name="q5corps" value="2" /> Des petits bobos par-ci par-là mais c'est gérable.</label>
+        <label class="option-label"><input type="radio" name="q5corps" value="3" /> Des maux en permanence c'est mon quotidien.</label>
+        <label class="option-label"><input type="radio" name="q5corps" value="4" /> L'histoire de ma vie, je sais même pas où j'ai pas mal.</label>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-block">
+      <p class="q-text">T'es du genre à crier sur ton kid et culpabiliser droit derrière ?</p>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q5" value="1" required /> Non, je gère plutôt bien et je rebondis vite.</label>
+        <label class="option-label"><input type="radio" name="q5" value="2" /> Ça arrive, mais ça passe.</label>
+        <label class="option-label"><input type="radio" name="q5" value="3" /> Oui et le soir je refais le film.</label>
+        <label class="option-label"><input type="radio" name="q5" value="4" /> Oui et le lendemain ça recommence. Je déteste cette boucle infernale.</label>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question-block">
+      <p class="q-text">Tu te poses avec ton kid et ta tête commence à trier ta to-do ?</p>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q6" value="1" required /> Non, j'arrive à être vraiment présente.</label>
+        <label class="option-label"><input type="radio" name="q6" value="2" /> Parfois, quand il y a beaucoup à gérer.</label>
+        <label class="option-label"><input type="radio" name="q6" value="3" /> Souvent, je l'écoute et je pense à autre chose <em>(le multitasking des moms)</em>.</label>
+        <label class="option-label"><input type="radio" name="q6" value="4" /> Toujours, une histoire de survie non ?</label>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question-block">
+      <p class="q-text">Les quelques phrases échangées avec ton +1 sont autour des kids, de la logistique et c'est toujours méga tendu ?</p>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q7" value="1" required /> Non, casquette de parent rapidement enlevée.</label>
+        <label class="option-label"><input type="radio" name="q7" value="2" /> On arrive à maintenir notre cocon d'amour malgré les journées chargées.</label>
+        <label class="option-label"><input type="radio" name="q7" value="3" /> Souvent trop naze pour switcher, donc on se balance les trucs et on chill devant la télé en silence (du silence svp !).</label>
+        <label class="option-label"><input type="radio" name="q7" value="4" /> Tu vis ma vie, chaud bouillant à chaque fois et les "c'est toi qui devais faire ça" permanents.</label>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="question-block">
+      <p class="q-text">Tu es celle qui pense à tout, à tout le monde et que personne ne voit ?</p>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q8" value="1" required /> Non, on se répartit bien les choses.</label>
+        <label class="option-label"><input type="radio" name="q8" value="2" /> En partie, il fait sa part mais j'anticipe quand même beaucoup les choses.</label>
+        <label class="option-label"><input type="radio" name="q8" value="3" /> Clairement ! Je dois demander, expliquer, relancer, c'est épuisant…</label>
+        <label class="option-label"><input type="radio" name="q8" value="4" /> T'habites chez nous ? Et cette invisibilité c'est le truc le plus fatigant de tout. Quand je parle, le kid et le +1 tombent des nues…</label>
+      </div>
+    </div>
+
+    <!-- EMAIL BLOCK -->
+    <div class="email-block">
+      <h2>Reçois tes résultats en 1 clic.</h2>
+      <p class="sub">Entre ton email et découvre à combien tu tournes.</p>
+      <p class="sub-below">Charge mentale à gogo ou tu gères ? Un petit cadeau t'attend.</p>
+      <p class="error-msg" id="error-msg">Réponds à toutes les questions, entre ton prénom, ton email et coche la case.</p>
+      <form method="post" action="https://systeme.io/embedded/42011457/subscription" onsubmit="return saveScore()">
+        <input type="text" name="first_name" placeholder="Ton prénom" required style="width:100%;padding:14px 18px;border-radius:12px;border:2px solid rgba(74,46,26,0.12);font-family:'Nunito',sans-serif;font-size:1rem;color:#3a2510;background:#fff;outline:none;margin-bottom:12px;display:block;" />
+        <input type="email" name="email" placeholder="Ton email" required style="width:100%;padding:14px 18px;border-radius:12px;border:2px solid rgba(74,46,26,0.12);font-family:'Nunito',sans-serif;font-size:1rem;color:#3a2510;background:#fff;outline:none;margin-bottom:16px;display:block;" />
+        <label style="display:flex;align-items:flex-start;gap:10px;font-size:0.85rem;color:#9b6c48;text-align:left;margin-bottom:20px;cursor:pointer;line-height:1.5;">
+          <input type="checkbox" id="consent-check" required style="width:18px;height:18px;flex-shrink:0;margin-top:2px;accent-color:#cd764b;" />
+          <span>Je consens à recevoir des emails.<br><em>(Pas de spam, tu te désinscris quand tu veux.)</em></span>
+        </label>
+        <button type="submit" style="display:block;width:100%;background:#cd764b;color:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:1rem;padding:15px 40px;border-radius:50px;border:none;cursor:pointer;">Je découvre mes résultats →</button>
+      </form>
+    </div>
+
+  </form>
+</main>
+
+<footer>
+  <div class="footer-logo">Monica Bonetti</div>
+  <p>Coach charge mentale · <a href="https://monica-bonetti.ch" target="_blank" rel="noopener">monica-bonetti.ch</a></p>
+  <p style="margin-top:6px;">© 2026 Monica Bonetti · Tous droits réservés</p>
+</footer>
+
+<script>
+  function saveScore() {
+    const questions = ['q1','q2','q3','q4','q5corps','q5','q6','q7','q8'];
+    const axeMap = {
+      q1: 'tete', q2: 'tete', q3: 'tete',
+      q4: 'corps', q5corps: 'corps',
+      q5: 'emotions', q6: 'emotions',
+      q7: 'relation', q8: 'relation'
+    };
+
+    const consent = document.getElementById('consent-check').checked;
+    const prenomField = document.querySelector('input[name="first_name"]');
+    const prenom = prenomField ? prenomField.value.trim() : '';
+
+    let allAnswered = true;
+    let total = 0;
+    const axeScores = { tete: 0, corps: 0, emotions: 0, relation: 0 };
+    const axeCount  = { tete: 0, corps: 0, emotions: 0, relation: 0 };
+
+    questions.forEach(function(q) {
+      const val = document.querySelector('input[name="' + q + '"]:checked');
+      if (!val) { allAnswered = false; return; }
+      const score = parseInt(val.value);
+      total += score;
+      axeScores[axeMap[q]] += score;
+      axeCount[axeMap[q]]++;
+    });
+
+    if (!allAnswered || !consent) {
+      document.getElementById('error-msg').style.display = 'block';
+      window.scrollTo({ top: document.getElementById('error-msg').offsetTop - 20, behavior: 'smooth' });
+      return false;
+    }
+
+    document.getElementById('error-msg').style.display = 'none';
+
+    const min = 9, max = 36;
+    const pct = Math.round(((total - min) / (max - min)) * 100);
+
+    const axeMoyennes = {};
+    Object.keys(axeScores).forEach(function(k) {
+      axeMoyennes[k] = axeCount[k] > 0 ? axeScores[k] / axeCount[k] : 0;
+    });
+    const maxVal = Math.max(...Object.values(axeMoyennes));
+    const topAxes = Object.keys(axeMoyennes).filter(function(k) { return axeMoyennes[k] === maxVal; });
+    const axeDominant = topAxes[Math.floor(Math.random() * topAxes.length)];
+
+    // Sauvegarder dans localStorage — Systeme.io redirige vers resultats.html
+    localStorage.setItem('quiz_score', pct);
+    localStorage.setItem('quiz_axe', axeDominant);
+    localStorage.setItem('quiz_prenom', prenom);
+
+    return true;
+  }
+</script>
+
+
+
+</body>
+</html>
